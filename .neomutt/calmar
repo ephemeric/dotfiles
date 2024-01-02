@@ -1,0 +1,265 @@
+# http://www.calmar.ws/dotfiles/muttrc.html
+
+  1 ########################################################################
+  2 # who you are - settings
+  3 ###
+  4 
+  5 unmy_hdr *
+  6 #my_hdr From: calmar <mac@calmar.ws>
+  7 my_hdr Organization: calmar.ws
+  8 my_hdr X-Homepage: http://www.calmar.ws
+  9 my_hdr X-PGP-Key: http://www.calmar.ws/calmar.asc
+ 10 my_hdr X-Operating-System: Debian (Un)stable, LinuxFromScratch.org
+ 11 
+ 12 set from="mac@calmar.ws"  # needed for %F in $index_format (see man)
+ 13 set realname="calmar von c."
+ 14 
+ 15 set header_cache=~/.mail/mutt_cache/
+ 16 #set message_cachedir = "/home/calmar/.mail/mutt_cache/"
+ 17 
+ 18 set signature='~/.signature'
+ 19 
+ 20 #set sendmail="/usr/bin/msmtp"
+ 21 set use_from=yes
+ 22 set envelope_from=yes
+ 23 set rfc2047_parameters=yes # encode =?iso-8858....?= filenames
+ 24 
+ 25 set pipe_decode=yes # encode stuff to urlview (to help...)
+ 26 
+ 27 #####################################################################
+ 28 # folder/mailboxes settings
+ 29 ###
+ 30 
+ 31 set folder=~/.mail  # there are the mailboxes (+ / = are shortcuts)
+ 32 set mbox_type=maildir  # see the wiki, there are 4 to choose from
+ 33 
+ 34 set spoolfile=+inbox           # incoming mails (~/.mail/inbox)
+ 35 set move=yes                   # to inbox to mbox after read
+ 36 set mbox="+inbox-rec" # after it's read ($folder/...)
+ 37 set postponed=+postponed       # postponed messages
+ 38 set record="+Sent-rec"  # sent messages (e.g. $folder/Sent-2006)
+ 39 set copy=yes                   # save a copy of outgoing message into $record
+ 40 #set header_cache=~/.mutt/cache_header/
+ 41 set read_inc=100
+ 42 set keep_flagged=yes  #don't move esc-f to $mbox from spool
+ 43 #set reply_self=yes  #use the reply-to: even on 'self-mail' but failure..often
+ 44 
+ 45 #mailboxes ! +inbox
+ 46 mailboxes =inbox
+ 47 mailboxes =cron
+ 48 mailboxes =calmar
+ 49 mailboxes =candrian
+ 50 mailboxes =allroundonlineshop
+ 51 mailboxes =prokulus-log
+ 52 mailboxes =mail-daemon
+ 53 mailboxes =aap
+ 54 mailboxes =conky
+ 55 
+ 56 
+ 57 # mailboxes =feeds
+ 58 # folder-hook =feeds set sort=from
+ 59 
+ 60 folder-hook . "source ~/.mutt/profile.inbox\n" # for every box
+ 61 folder-hook =candrian.*$ "source ~/.mutt/profile.candrian\n" # special
+ 62 folder-hook =allroundonlineshop$ "source ~/.mutt/profile.allroundonlineshop\n" # special
+ 63 
+ 64 ######################################################################
+ 65 # addressbook - email - alias settings
+ 66 ###
+ 67 
+ 68 set alias_file=~/.mutt/aliases      # add the Aliases here
+ 69 source ~/.mutt/aliases              # and include all existing aliases
+ 70 set sort_alias=alias                # sort by alias ( or address, unsorted)
+ 71 
+ 72 set query_command="abook --mutt-query '%s'"  # address book
+ 73 
+ 74 
+ 75 #####################################################################
+ 76 # how to check for new mails
+ 77 ###
+ 78 
+ 79 set timeout=5    # press artificially a key after 10 seconds
+ 80 set mail_check=5  # mutt checks for new mails on every keystrokes
+ 81                   # but not more often then once in 3 seconds
+ 82 set beep_new      # beep on new messages in the mailboxes
+ 83 
+ 84 
+ 85 #####################################################################
+ 86 # how to edit messages
+ 87 ###
+ 88 
+ 89 set editor=vim
+ 90 set edit_headers            # put headers in editor when composing messages
+ 91                             # additioally I have a some setting in vim for
+ 92                             # my convenience (lazyness):
+ 93 # autocmd BufNewFile,BufRead /tmp/mutt-* set filetype=mail
+ 94 # au FileType mail set tw=64 autoindent expandtab formatoptions=tcqn
+ 95 # au FileType mail set list listchars=tab:»·,trail:·
+ 96 # au FileType mail set comments=nb:>
+ 97 # au FileType mail vmap D dO[...]^[
+ 98 # "I can delete text bloxks with D, it gets replaced by [...] then
+ 99 # au FileType mail silent normal /--\s*$^MO^[gg/^$^Mj
+100 # "the last line brings the curser to where I can start typing
+101 # "for boxes around text, I pipe text through the boxes program with 
+102 # "convenient bindings in vim e.g.
+103 # map <LEADER>b2 :!boxes  -d ca--tlb-n<CR>  (ca--tlb-n is a design by my own so)
+104 
+105 #####################################################################
+106 # miscellous settings
+107 ###
+108 
+109 set crypt_autosign=no
+110 set pgp_auto_decode = yes
+111 set pgp_autoinline = no
+112 set pgp_check_exit = yes
+113 set pgp_clearsign_command = "gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
+114 set pgp_decode_command = "gpg %?p?--passphrase-fd 0? --no-verbose --batch --output - %f"
+115 set pgp_decrypt_command = "gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
+116 set pgp_encrypt_only_command = "pgpewrap gpg -v --batch --output - --encrypt --textmode --armor --always-trust -- -r %r -- %f"
+117 set pgp_encrypt_sign_command = "pgpewrap gpg --passphrase-fd 0 -v --batch --output - --encrypt --sign %?a?-u %a? --armor --always-trust -- -r %r -- %f"
+118 set pgp_entry_format = '%4n %t%f %4l/0x%k %-4a %2c %u'
+119 set pgp_export_command = "gpg --no-verbose --export --armor %r"
+120 set pgp_getkeys_command = "gpg --recv-keys %r > /dev/null 2>&1"
+121 set pgp_good_sign = ''
+122 set pgp_ignore_subkeys = yes
+123 set pgp_import_command = "gpg --no-verbose --import -v %f"
+124 set pgp_list_pubring_command = "gpg --no-verbose --batc --with-colons --list-keys %r"
+125 set pgp_list_secring_command = "gpg --no-verbose --batch --with-colons --list-secret-keys %r"
+126 set pgp_long_ids = no
+127 set pgp_mime_auto = ask-yes
+128 set pgp_replyinline = no
+129 set pgp_retainable_sigs = no
+130 set pgp_show_unusable = yes
+131 set pgp_sign_as=0x59D90F4D
+132 set pgp_sign_command = "gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --detach-sign --textmode %?a?-u %a? %f"
+133 set pgp_sort_keys = 'address'
+134 set pgp_strict_enc = yes
+135 set pgp_timeout = '9999'
+136 set pgp_use_gpg_agent = no
+137 set pgp_verify_command = "gpg --no-verbose --batch --output - --verify %s %f"
+138 set pgp_verify_key_command = "gpg --no-verbose --batch --fingerprint --check-sigs $r"
+139 
+140 #####################################################################
+141 # how mutt presents the list of the messages
+142 ###
+143 
+144 #for possible values, see manual:  3.259.  sort
+145 set sort=threads            # sorting the mails in threads in index (mails-list-view)
+146 set sort_aux=reverse-date   # and the thread themselves reverse-date
+147                             # with o or O you can change that instantly
+148                             #
+149 #####################################################################
+150 # how mutt presents the things in browser
+151 # (where you can see all folders/files on file-system)
+152 ###
+153 
+154 set sort_browser=alpha      # is the default I think, but anyway
+155 
+156 #####################################################################
+157 # how mutt presents a particular message
+158 ###
+159 
+160 ignore *   # with only that, no mail - headers should get shown normally
+161 unignore From: To: subject date  cc reply-to  # I want these to see
+162 unignore User-Agent:  X-Spam-Status:
+163 
+164 unhdr_order *   # the order of the headers above (if they exist)
+165 hdr_order Date: To: From: Subject: Cc: Bcc: User-Agent: X-Spam-Status:
+166 
+167 alternative_order text/html text/enriched text/plain
+168                          # order of prefered mime types if there's a choice
+169                          # I prefer text/html before text/plain
+170                          # auto_view'ed (dumped through elinks) (see below)
+171                          # (I prefer plain messages , but when there is an
+172                          # html too attached on the same mail, that's most of
+173                          # the time more interesting, since the text/plain just
+174                          # tells, I shall get a modern mail-client or however)
+175 
+176 auto_view text/html      # text/enriched and text/plain support are builtins
+177                          # how to auto_view text/html takes mutt from  mailcap files:
+178                          # ~/.mailcap  then /etc/mailcap or so
+179                          # (settings with 'needsterminal' option or so)
+180                          # I have in my ~/.mailcap for that purpose:
+181                          # text/html; elinks -dump -force-html %s; needsterminal; copiousoutput;
+182 
+183 #####################################################################
+184 # other user interface settings
+185 ###
+186 
+187 set pager_index_lines=12     # add small index window at top of pager/messages
+188 
+189 
+190 #####################################################################
+191 # ask or do not ask, or what is the default -  settings
+192 ###
+193 
+194 set bounce=yes
+195 set help=yes
+196 set postpone=ask-yes           # ask for postponing when doing an Abort.
+197 set print=ask-yes              # ask whether you really want to print.
+198 set quit=yes
+199 set delete=yes                 # ask for confirmation when deleting messages?
+200 set include=yes                # quote message, when replying
+201 set abort_nosubject=no         # Abort, if message has no subject.
+202 set reply_to=ask-yes           # Use or ignore Reply-To.
+203 set recall=no                  # don't ask for using postponed message.
+204 set abort_unmodified=no        # Abort, if message wasn't edited.
+205 set honor_followup_to=ask-yes  # Ask whether to honor Mail-Followup-To header.
+206 set mime_forward=ask-no        # use MIME when forwarding mails.
+207 set mime_forward_rest=ask-no   # forward attachments w/o autoview from attmenu
+208 set pager_stop                 # stay at the current mail when page-down'ing
+209 
+210 
+211 #####################################################################
+212 # mailling list settings (so e.g. to reply with a `L' )
+213 ###
+214 
+215 #aliases actually
+216 lists awesome vimperator conky vim a-a-p-user a-a-p-develop gnucash-user mutt-dev cairo matplotlib-users
+217 subscribe matplotlib-users
+218 
+219 #####################################################################
+220 # bindings / macros for your convenience
+221 ###
+222 
+223 macro editor ";" \Ct  # while typing addresses after a m - ; for completing it
+224 macro pager "n" qn<enter>
+225 
+226 #c-v Fx neede for keyboard, <Fx> works for my special mouse-setup however
+227 macro pager,editor,index ^[[11~ !vim\ /home/calmar/.mutt/manual.txt<enter>
+228 macro pager,editor,index ^[[17~ :source\ /home/calmar/.mutt/muttrc<enter>
+229 macro pager,editor,index <F7> <tab>
+230 macro pager,editor,index <F8> c<enter>
+231 macro pager,editor,index <F9> j
+232 macro pager,editor,index <F10> <enter>
+233 macro pager,editor,index <F11> q
+234 macro pager,editor,index <F12> k
+235 
+236 # notmuch.org bindings
+237 macro index ^[[14~ "<enter-command>unset wait_key<enter><shell-escape>notmuch-mutt -r --prompt search<enter><change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter>" "notmuch: search mail"
+238 macro index ^[[13~ "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt -r thread<enter><change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter><enter-command>set wait_key<enter>" "notmuch: reconstruct thread"
+239 macro index ^[[12~ "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt tag -- -inbox<enter>" "notmuch: remove message from inbox"
+240 macro index <F4> "<enter-command>unset wait_key<enter><shell-escape>notmuch-mutt -r --prompt search<enter><change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter>" "notmuch: search mail"
+241 macro index <F3> "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt -r thread<enter><change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter><enter-command>set wait_key<enter>" "notmuch: reconstruct thread"
+242 macro index <F2> "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt tag -- -inbox<enter>" "notmuch: remove message from inbox"
+243 
+244 macro index "x" |urlview\n
+245 macro pager "x" |urlview\n
+246 
+247 bind pager "z" next-page
+248 bind pager "Z" previous-page
+249 
+250 # message-hook '!(~g|~G) ~b"^-----BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-traditional-pgp"
+251 
+252 #####################################################################
+253 # colors
+254 ###
+255 ### color pager
+256 # Rados' colors
+257 #source colors_rado
+258 
+259 source `case $TERM in\
+260              *256color) echo '~/.mutt/colors256-dark'; break ;;\
+261              *rxvt-unicode) echo '~/.mutt/colors256-dark'; break ;;\
+262              *) echo '~/.mutt/konsole-color'; break ;;\
+263         esac`

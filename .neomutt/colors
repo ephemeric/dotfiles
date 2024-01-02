@@ -1,0 +1,30 @@
+## Defaults
+color normal     white         default
+color quoted     green         default
+color quoted1    white         default
+color quoted2    white         default
+color signature  cyan          default
+color indicator  black   color245
+color error      red     default
+color tilde      blue          default
+color attachment yellow  default
+color markers    red     default
+color message    white         default
+color search     white         magenta
+#color bold       yellow  default
+color status     color245      default
+
+## Index
+color index white default "~N"
+color index_date blue default "~N"
+color index_author magenta default "~N"
+color index_subject yellow default "~N"
+#color index green black "~s malware"
+
+# Pager
+color hdrdefault black color245
+color header white blue "^(Date)"
+color header magenta blue "^(From)"
+color header cyan blue "^(To)"
+color header cyan blue "^(CC|BCC)"
+color header brightwhite blue "^(Subject)"

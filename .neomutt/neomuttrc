@@ -1,0 +1,32 @@
+unset help
+
+ignore *
+#unignore from date subject to cc
+unignore date subject
+hdr_order Date From To Cc Subject
+
+set hostname = macbook.ephemeric.lan
+set realname = "Robert Gabriel"
+
+set date_format = "%b %d %R"
+set status_format = "%f %> [M:%m%?n? N:%n?%?d? D:%d?%?p? P:%p? F:%F B:%b %l %r %P]"
+set index_format = "%d [%-25.25L] %-58.58s [%Z %4c]"
+set pager_format = "%-20.20n %s%*  [%S %4c %C/%m %P]"
+set editor='vim + -c "setlocal wrapmargin=0 textwidth=0 wrap nocp linebreak nohlsearch" -c "set spell spelllang=en"'
+
+set alias_file= "~/.neomutt/aliases"
+set certificate_file = "~/.neomutt/certificates"
+set header_cache = "~/.cache/neomutt"
+set message_cachedir = "~/.cache/neomutt"
+
+set timeout = 60
+set sort = threads
+
+set edit_headers = yes
+set pager_stop = yes
+set mark_old = no
+set markers = no
+#set pager = 'vim + -c "setlocal wrapmargin=0 textwidth=0" -c "set spell spelllang=en"'
+
+source ~/.neomutt/colors
+source ~/.neomutt/bindings

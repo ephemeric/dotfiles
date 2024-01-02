@@ -1,0 +1,31 @@
+#unset
+unhook *
+unmailboxes *
+
+set from = "ephemeric@icloud.com"
+set mbox_type = mbox
+
+set imap_user = "ephemeric@icloud.com"
+set imap_pass = "atxg-dvoc-uewt-thuc"
+set imap_oauth_refresh_command = ""
+set imap_authenticators        = ""
+
+set smtp_user = "ephemeric@icloud.com"
+set smtp_pass = "atxg-dvoc-uewt-thuc"
+set smtp_url = "smtp://$smtp_user:$smtp_pass@smtp.mail.me.com:587/"
+set smtp_authenticators = 'gssapi:login'
+set smtp_oauth_refresh_command = ""
+
+set folder = "imaps://$imap_user:$imap_pass@imap.mail.me.com:993/"
+set trash = "+Deleted Messages"
+set postponed = "+Drafts"
+set record = "+Sent Messages"
+
+mailboxes = "+INBOX" "+Junk"
+
+macro index         gi      "<change-folder>+INBOX<enter>"
+macro index         ga      "<change-folder>+Archive<enter>"
+macro index         gd      "<change-folder>+Drafts<enter>"
+macro index         gj      "<change-folder>+Junk<enter>"
+macro index         gs      "<change-folder>+Sent%20Messages<enter>"
+macro index         gb      "<change-folder>+Deleted%20Messages<enter>"

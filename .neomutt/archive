@@ -1,0 +1,30 @@
+#unset
+unhook *
+unmailboxes *
+
+set from = "slob@ephemeric.lan"
+set mbox_type = Maildir
+
+set imap_user = ""
+set imap_pass = "c"
+set imap_oauth_refresh_command = ""
+set imap_authenticators        = ""
+
+set smtp_user = ""
+set smtp_pass = ""
+set smtp_url = ""
+set smtp_authenticators = ""
+set smtp_oauth_refresh_command = ""
+
+set folder = "~/Mail"
+set trash = "+bin"
+set postponed = "+drafts"
+set record = "+sent"
+
+mailboxes = "+INBOX" "+bin"
+
+macro index         gi      "<change-folder>+INBOX<enter>"
+macro index         ga      "<change-folder>+archive<enter>"
+macro index         gs      "<change-folder>+sent<enter>"
+macro index         gd      "<change-folder>+drafts<enter>"
+macro index         gb      "<change-folder>+bin<enter>"

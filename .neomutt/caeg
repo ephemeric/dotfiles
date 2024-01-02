@@ -1,0 +1,31 @@
+#unset
+unhook *
+unmailboxes *
+
+set from                       = robert@caeg.co.za
+set mbox_type                  = mbox
+
+set imap_user                  = robert@caeg.co.za
+set imap_pass                  = degwip-rybnUs-1widko
+set imap_oauth_refresh_command = "/Users/robertg/.local/bin/oauth2.py /Users/robertg/.neomutt/oauth2"
+set imap_authenticators        = xoauth2
+
+set smtp_user                  = "robert@caeg.co.za"
+set smtp_pass                  = degwip-rybnUs-1widko
+set smtp_url                   = smtp://$smtp_user@smtp.office365.com:587
+set smtp_authenticators        = xoauth2
+set smtp_oauth_refresh_command = ${imap_oauth_refresh_command}
+
+set folder                     = imaps://outlook.office365.com
+set trash                      = "+Trash"
+set postponed                  = "+Drafts"
+set record                     = "+Sent%20Items"
+
+mailboxes                      = "+INBOX"
+
+macro index                    gi      "<change-folder>+INBOX<enter>"
+macro index                    ga      "<change-folder>+Archive<enter>"
+macro index                    gd      "<change-folder>+Drafts<enter>"
+macro index                    gj      "<change-folder>+Junk<enter>"
+macro index                    gs      "<change-folder>+"Sent%20Items"<enter>"
+macro index                    gb      "<change-folder>+Trash<enter>"

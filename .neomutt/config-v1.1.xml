@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="afrihost.com">
+    <domain>afrihost.com</domain>
+    <displayName>Afrihost</displayName>
+    <displayShortName>Afrihost</displayShortName>
+    <incomingServer type="imap">
+      <hostname>envoy.aserv.co.za</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <authentication>password-cleartext</authentication>
+      <username/>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>envoy.aserv.co.za</hostname>
+      <port>465</port>
+      <socketType>SSL</socketType>
+      <authentication>password-cleartext</authentication>
+      <username/>
+    </outgoingServer>
+    <documentation url="https://www.afrihost.com/site/help_centre/">
+      <descr lang="de">Allgemeine Beschreibung der Einstellungen</descr>
+      <descr lang="en">Generic settings page</descr>
+    </documentation>
+  </emailProvider>
+</clientConfig>

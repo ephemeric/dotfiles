@@ -1,0 +1,39 @@
+[user]
+name = Robert Gabriel
+email = ephemeric@icloud.net
+
+[alias]
+s = status
+t = tag
+p = push --progress -v
+pt = push --tags
+c = commit -am 'Added file(s).'
+f = fetch
+al = config --get-regexp alias
+cl = config --list
+co = checkout
+dt = diff-tree --no-commit-id --name-only -r
+l = log
+lo = log --oneline
+lp = log --oneline --decorate --graph --pretty=format:'%C(auto)%h -%d %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+lg = log --graph --full-history --all --pretty=format:"%h%x09%d%x20%s"
+
+#git lfs track library/lab/log-generator/samples/*.log
+#.gitattributes
+#git lfs ls-files
+#git lfs install?
+#git lfs fetch
+#git lfs checkout
+[lfs]
+fetchexclude = *
+[pull]
+# Use `merge` if feature branch.
+rebase = true
+
+[init]
+defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
